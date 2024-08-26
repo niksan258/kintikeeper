@@ -1,10 +1,5 @@
-// firebase.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-import { firebaseConfig } from "../config/secrets";
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { auth } from "./firebaseinit.js";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -14,9 +9,10 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert('Login successful!');
+        alert('Login successful!'); 
+        window.location.href = '../home/home.html';
     } catch (error) {
-        alert('Error logging in: ' + error.message);
+        console.log(error)
     }
 });
 
@@ -30,8 +26,10 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     try {
         await createUserWithEmailAndPassword(auth, email, password);
         alert('Sign up successful!');
+        window.location.href = '../home/home.html';
+
     } catch (error) {
-        alert('Error signing up: ' + error.message);
+        document.querySelector('.form-error').textContent = error.code
     }
 });
 

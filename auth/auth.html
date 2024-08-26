@@ -6,6 +6,7 @@
     <title>Login/Signup Page</title>
     <!-- Firebase SDK -->
     <link rel="stylesheet" href="styles.css">
+    <!-- <script type="module" src="firebaseinit.js" defer></script> -->
     <script type="module" src="firebase-auth.js" defer></script>
     <script src="helpers.js" defer></script>
 </head>
@@ -16,6 +17,7 @@
             <form id="loginForm">
                 <input type="email" id="loginEmail" placeholder="Email" required>
                 <input type="password" id="loginPassword" placeholder="Password" required>
+                <span class="form-error"></span>
                 <button type="submit">Login</button>
             </form>
             <a class="toggle-link" onclick="toggleForms()">Don't have an account? Sign up</a>

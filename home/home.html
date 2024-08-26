@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="home.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div id="title">KintiKeeper</div>
+            <div class="account-details">
+                <span class="userEmail"></span>
+                <i class="fa-solid fa-right-from-bracket"></i>
+             </div>
+            </header>
+        <aside class="sidebar">
+            <ul>
+                <li>My accounts</li>
+                <li>New transfer</li>
+                <li>Apply for a loan</li>
+            </ul>
+        </aside>
+        <main class="main">
+            <h1>My accounts</h1>
+            <div class="bank-accounts">
+                <div class="account-tile">
+                    <div class="balance">
+                        <span class="label">Balance:</span>
+                        <span class="amount">€12,345.67</span>
+                    </div>
+                    <div class="currency">
+                        <span class="label">Currency:</span>
+                        <span class="value">EUR</span>
+                        <div class="iban">
+                            <span class="label">IBAN:</span>
+                            <span class="value">DE89 3704 0044 0532 0130 00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-tile add-account-tile">
+                    <div class="add-account-content">
+                        <span class="add-icon">+</span>
+                        <span class="add-text">Create account</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">Nikola Nikolov © 2024</footer>
+    </div>
+</body>
+</html>
