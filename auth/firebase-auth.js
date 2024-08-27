@@ -1,4 +1,4 @@
-import { auth } from "./firebaseinit.js";
+import { auth } from "../services/firebaseinit.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -9,7 +9,6 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert('Login successful!'); 
         window.location.href = '../home/home.html';
     } catch (error) {
         console.log(error)
@@ -25,7 +24,6 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
 
     try {
         await createUserWithEmailAndPassword(auth, email, password);
-        alert('Sign up successful!');
         window.location.href = '../home/home.html';
 
     } catch (error) {

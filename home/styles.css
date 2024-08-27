@@ -22,6 +22,12 @@ html, body {
     width: 100vw;
 }
 
+.table-container
+{
+    width: 100%;
+    overflow-x: auto;
+}
+
 /* Header  & sidebar*/
 .header {
     grid-area: header;
@@ -124,6 +130,27 @@ html, body {
     font-size: 1.2em;
     color: #00796b;
     font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr {
+    border-bottom: 1px solid #ccc;
+}
+tr:last-child {
+    border-bottom: none;
 }
 
 /* Footer */

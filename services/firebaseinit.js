@@ -1,9 +1,11 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { firebaseConfig } from '../config/secrets.js'; // Adjust the path as needed
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { firebaseConfig } from '../config/secrets.js';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); // Pass the initialized app to getAuth
+const auth = getAuth(app);
+const db = getFirestore(app)
 
-export { auth }; // Export the auth instance
+export { auth, db }; 

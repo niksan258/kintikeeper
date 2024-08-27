@@ -14,7 +14,7 @@
             <div id="title">KintiKeeper</div>
             <div class="account-details">
                 <span class="userEmail"></span>
-                <i class="fa-solid fa-right-from-bracket"></i>
+                <i onclick="logOut()" class="fa-solid fa-right-from-bracket"></i>
              </div>
             </header>
         <aside class="sidebar">
@@ -48,6 +48,48 @@
                     </div>
                 </div>
             </div>
+
+            <br></br>
+            <br></br>
+            <div class="table-container">
+            <h2>Last transactions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Account</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Purchase at Store A</td>
+                        <td>DE****1234</td>
+                        <td>50.00</td>
+                        <td>EUR</td>
+                        <td>26 Aug 2024</td>
+                    </tr>
+                    <tr>
+                        <td>Subscription Fee</td>
+                        <td>DE****5678</td>
+                        <td>15.99</td>
+                        <td>EUR</td>
+                        <td>25 Aug 2024</td>
+                    </tr>
+                    <tr>
+                        <td>Refund from Store B</td>
+                        <td>DE****9012</td>
+                        <td>-30.00</td>
+                        <td>EUR</td>
+                        <td>24 Aug 2024</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            
+            
         </main>
         <footer class="footer">Nikola Nikolov © 2024</footer>
     </div>
