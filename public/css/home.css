@@ -1,10 +1,3 @@
-/* Previous styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html, body {
     height: 100%;
     font-family: Arial, sans-serif;
@@ -83,7 +76,7 @@ tr:last-child {
 .main {
     grid-area: main;
     background-color: #fff;
-    padding: 20px;
+    padding: 20px; 
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -229,7 +222,7 @@ tr:last-child {
 .modal button {
     width: 100%;
     padding: 10px;
-    background-color: #00796b;
+    background-color: #292828;
     color: white;
     border: none;
     border-radius: 5px;
@@ -243,7 +236,7 @@ tr:last-child {
 }
 
 .modal button:hover {
-    background-color: #004d40;
+    background-color: #4a4a4a;
 }
 
 /* Account detals*/

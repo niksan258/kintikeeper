@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-import { auth } from "../auth/firebaseinit.js";
-import BankAccountService from "../js/bankAccountService.js";
-import TransactionService from "../js/transactionService.js";
+import { auth } from "./firebaseinit.js";
+import BankAccountService from "./bankAccountService.js";
+import TransactionService from "./transactionService.js";
 
 const bankAccountService = new BankAccountService();
 const transactionService = new TransactionService();
@@ -16,7 +16,7 @@ window.onload = () => {
             fetchAndRenderTransactions(user.uid);
         } else {
             localStorage.uid = null;
-            window.location.href = '../auth/auth.html';
+            window.location.href = './auth.html';
         }
     });
 };
@@ -24,7 +24,7 @@ window.onload = () => {
 // Log out function
 window.logOut = () => {
     auth.signOut().then(() => {
-        window.location.href = "../auth/auth.html";
+        window.location.href = "./auth.html";
     });
 };
 
@@ -48,7 +48,6 @@ const fetchAndRenderBankAccounts = async (userId) => {
                 openAccountDetailsModal(account);
             });
 
-            // Append the account tile to the container
             container.appendChild(accountTile);
         });
     } catch (error) {

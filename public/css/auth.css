@@ -38,14 +38,14 @@ button {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #292828;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #4a4a4a;
 }
 
 a.toggle-link {
