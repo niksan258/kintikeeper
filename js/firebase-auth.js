@@ -1,4 +1,4 @@
-import { auth } from "../services/firebaseinit.js";
+import { auth } from "./firebaseinit.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {

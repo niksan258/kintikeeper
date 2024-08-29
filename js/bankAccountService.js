@@ -10,17 +10,13 @@ class BankAccountService extends BaseFirestoreService {
         return this.getDocuments(filter, lastVisibleDoc, pageSize);
     }
 
-    async addBankAccount(data) {
-        return this.addDocument(data);
-    }
+    getBankAccountById = async (id) => this.getDocumentById(id);
 
-    async updateBankAccount(accountId, updatedData) {
-        return this.updateDocument(accountId, updatedData);
-    }
+    addBankAccount = async (data) => this.addDocument(data);
 
-    async deleteBankAccount(accountId) {
-        return this.deleteDocument(accountId);
-    }
+    updateBankAccount = async (updatedData) => this.updateDocument(updatedData);
+
+    deleteBankAccount = async (accountId) => this.deleteDocument(accountId);
 }
 
 export default BankAccountService;

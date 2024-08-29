@@ -1,11 +1,29 @@
 // firestoreService.js
 import { db } from "./firebaseinit.js";
-import { collection, query, where, getDocs, doc, addDoc, updateDoc, deleteDoc, orderBy, startAfter, limit, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { collection, query, where, getDocs, doc,getDoc, addDoc, updateDoc, deleteDoc, orderBy, startAfter, limit, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 class BaseFirestoreService {
     constructor(collectionName) {
         this.collectionName = collectionName;
         this.col = collection(db, collectionName);
+    }
+
+    async getDocumentById(documentId) {
+        const docRef = doc(db, this.collectionName, documentId);
+        try {
+            const docSnapshot = await getDoc(docRef);
+            if (docSnapshot.exists()) {
+                return {
+                    id: docSnapshot.id,
+                    ...docSnapshot.data()
+                };
+            } else {
+                throw new Error(`No such document with ID: ${documentId}`);
+            }
+        } catch (error) {
+            console.error(`Error getting document by ID from ${this.collectionName}:`, error);
+            throw error;
+        }
     }
 
     async getDocuments(filter, lastVisibleDoc = null, pageSize = 10) {
@@ -55,11 +73,12 @@ class BaseFirestoreService {
         }
     }
 
-    async updateDocument(documentId, updatedData) {
-        const docRef = doc(db, this.collectionName, documentId);
+    async updateDocument(updatedData) {
+        const {id, ...updatedFields} = updatedData;
+        const docRef = doc(db, this.collectionName, id);
         try {
             const documentData = {
-                ...updatedData,
+                ...updatedFields,
                 updatedAt: Timestamp.now(),
             };
             await updateDoc(docRef, documentData);
