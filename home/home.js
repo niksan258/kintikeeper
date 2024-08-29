@@ -10,6 +10,7 @@ const transactionService = new TransactionService();
 window.onload = () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
+            document.getElementById("userEmail").textContent = user.email;
             localStorage.uid = user.uid;
             fetchAndRenderBankAccounts(user.uid);
             fetchAndRenderTransactions(user.uid);
@@ -61,7 +62,7 @@ const renderBankAccountTile = (account) => {
         <div class="account-tile" data-account-id="${account.id}">
             <div class="balance">
                 <span class="label">Balance:</span>
-                <span class="amount">${CurrencyTypes[account.currency].sign +' '+account.balance.toFixed(2)}</span>
+                <span class="amount">${CurrencyTypes[account.currency].sign + ' ' + account.balance.toFixed(2)}</span>
             </div>
             <div class="currency">
                 <span class="label">Currency:</span>
@@ -78,7 +79,7 @@ const renderBankAccountTile = (account) => {
 // Fetch and render transactions for a specific account
 const fetchAndRenderAccountTransactions = async (accountId) => {
     try {
-        const transactions = (await transactionService.getTransactionsForAccount(accountId)).documents;
+        const transactions = (await transactionService.getTransactionsForAccount(accountId, null, 5)).documents;
         const tbody = document.getElementById("transactionTableBody");
         tbody.innerHTML = ''; // Clear any existing content
 
@@ -93,7 +94,7 @@ const fetchAndRenderAccountTransactions = async (accountId) => {
 // Fetch and render transactions for the user
 const fetchAndRenderTransactions = async (userId) => {
     try {
-        const transactions = (await transactionService.getLatestTransactionsForUser(userId)).documents;
+        const transactions = (await transactionService.getLatestTransactionsForUser(userId, 5)).documents;
         console.log("found" + transactions)
         const tbody = document.querySelector('.table-container tbody');
         tbody.innerHTML = ''; // Clear any existing content
@@ -162,10 +163,10 @@ const addAccountTile = document.querySelector(".add-account-tile");
 // Hanle add bank account
 document.getElementById("addAccountForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    
+
     const balance = parseFloat(document.getElementById("balance").value);
     const currency = parseInt(document.getElementById("currency").value);
-    
+
     try {
         await bankAccountService.addBankAccount({
             balance: balance,
@@ -173,7 +174,7 @@ document.getElementById("addAccountForm").addEventListener("submit", async (even
             iban: generateRandomIBAN(),
             userId: auth.currentUser.uid
         });
-        
+
         fetchAndRenderBankAccounts(auth.currentUser.uid);
         addAccountModal.style.display = "none";
     } catch (error) {
@@ -192,8 +193,8 @@ let currentAccountId = null;
 document.getElementById('confirmDeleteButton').addEventListener('click', async () => {
     try {
         await bankAccountService.deleteBankAccount(currentAccountId);
-        fetchAndRenderBankAccounts(auth.currentUser.uid); 
-        accountDetailsModal.style.display = "none"; 
+        fetchAndRenderBankAccounts(auth.currentUser.uid);
+        accountDetailsModal.style.display = "none";
         confirmModal.style.display = "none";
     } catch (error) {
         console.error('Error deleting account:', error);
@@ -233,20 +234,26 @@ const confirmModal = document.getElementById('confirmationModal');
 const closeConfirmModalIcon = document.getElementById('closeConfirmationModal');
 const closeConfirmModalButton = document.getElementById('cancelDeleteButton');
 const deleteAccountButton = document.getElementById('deleteAccountButton');
-deleteAccountButton.addEventListener('click', () => confirmModal.style.display = 'block');
+deleteAccountButton.addEventListener('click', () => {
+    confirmModal.style.display = 'block'
+    accountDetailsModal.style.display = 'none'});
+
 closeConfirmModalIcon.addEventListener('click', () => confirmModal.style.display = 'none');
-closeConfirmModalButton.addEventListener('click', () => confirmModal.style.display = 'none');
+closeConfirmModalButton.addEventListener('click', () => {
+    confirmModal.style.display = 'none'
+    accountDetailsModal.style.display = 'block'});
 
 window.addEventListener("click", (event) => {
     if (event.target === accountDetailsModal
         || event.target === addAccountModal
-        || event.target === confirmationModal) {
+        || event.target === confirmationModal
+        || event.target === createTransactionModal) {
 
         accountDetailsModal.style.display = "none";
-    }
-}
-);
-//
+        addAccountModal.style.display = "none";
+        confirmModal.style.display = "none";
+        createTransactionModal.style.display = "none";
+    }});
 
 // Add references to the new modal and form elements
 const createTransactionModal = document.getElementById("createTransactionModal");
@@ -266,12 +273,10 @@ closeCreateTransactionModalBtn.addEventListener("click", () => {
     createTransactionModal.style.display = "none";
 });
 
-
-
 // Handle the creation of a new transaction
 createTransactionForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    
+
     const title = document.getElementById("transactionTitle").value;
     const type = parseInt(document.getElementById("transactionType").value);
     const amount = parseFloat(document.getElementById("transactionAmount").value);
@@ -288,7 +293,7 @@ createTransactionForm.addEventListener("submit", async (event) => {
         };
 
         await transactionService.addTransaction(transaction);
-        
+
         fetchAndRenderAccountTransactions(currentAccountId); // Refresh transactions
         createTransactionModal.style.display = "none";
         accountDetailsModal.style.display = "block"
@@ -300,6 +305,3 @@ createTransactionForm.addEventListener("submit", async (event) => {
 
 // Show Create Transaction modal
 document.getElementById('createTransactionButton').addEventListener('click', openCreateTransactionModal);
-
-
-// Existing code for handling account details modal, deleting account, etc.
