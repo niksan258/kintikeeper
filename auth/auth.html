@@ -7,11 +7,11 @@
     <!-- Firebase SDK -->
     <link rel="stylesheet" href="styles.css">
     <!-- <script type="module" src="firebaseinit.js" defer></script> -->
-    <script type="module" src="firebase-auth.js" defer></script>
+    <script type="module" src="../js/firebase-auth.js" defer></script>
     <script src="helpers.js" defer></script>
 </head>
 <body>
-    <div class="container">
+    <div class="form-container">
         <div id="loginFormContainer">
             <h2>Welcome, please log in</h2>
             <form id="loginForm">
@@ -29,6 +29,7 @@
                 <!-- <input type="text" id="signupUsername" placeholder="Username" required> -->
                 <input type="email" id="signupEmail" placeholder="Email" required>
                 <input type="password" id="signupPassword" placeholder="Password" required>
+                <span class="form-error"></span>
                 <button type="submit">Sign Up</button>
             </form>
             <a class="toggle-link" onclick="toggleForms()">Already have an account? Login</a>

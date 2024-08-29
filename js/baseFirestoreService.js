@@ -1,5 +1,5 @@
 // firestoreService.js
-import { db } from "./firebaseinit.js";
+import { db } from "../auth/firebaseinit.js";
 import { collection, query, where, getDocs, doc,getDoc, addDoc, updateDoc, deleteDoc, orderBy, startAfter, limit, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 class BaseFirestoreService {
@@ -26,18 +26,17 @@ class BaseFirestoreService {
         }
     }
 
-    async getDocuments(filter, lastVisibleDoc = null, pageSize = 10) {
+    async getDocuments(filter, lastVisibleDoc = null, pageSize = null) {
         let q = query(this.col, orderBy("updatedAt"));
         
-        if (filter) {
+        if (filter) 
             q = query(q, where(filter.field, filter.operator, filter.value));
-        }
 
-        if (lastVisibleDoc) {
+        if (lastVisibleDoc)
             q = query(q, startAfter(lastVisibleDoc));
-        }
 
-        q = query(q, limit(pageSize));
+        if(pageSize)
+            q = query(q, limit(pageSize));
 
         try {
             const querySnapshot = await getDocs(q);

@@ -1,63 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <script type="module" src="home.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header class="header">
-            <div id="title">KintiKeeper</div>
-            <div class="account-details">
-                <span class="userEmail"></span>
-                <i onclick="logOut()" class="fa-solid fa-right-from-bracket"></i>
-             </div>
-            </header>
-        <aside class="sidebar">
+      <header class="header">
+        <div id="title">KintiKeeper</div>
+        <div class="account-details">
+          <span class="userEmail"></span>
+          <i onclick="logOut()" class="fa-solid fa-right-from-bracket"></i>
+        </div>
+      </header>
+      <!-- <aside class="sidebar">
             <ul>
                 <li>My accounts</li>
                 <li>New transfer</li>
                 <li>Apply for a loan</li>
             </ul>
-        </aside>
-        <main class="main">
-            <h1>My accounts</h1>
-            <div class="bank-accounts">
-                <!-- 
-                <div class="account-tile add-account-tile">
-                    <div class="add-account-content">
-                        <span class="add-icon">+</span>
-                        <span class="add-text">Create account</span>
-                    </div>
-                </div> -->
+        </aside> -->
+      <main class="main">
+        <h1>My accounts</h1>
+        <div class="bank-accounts">
+            <div id="accountList"></div>
+            <!-- Create Account Tile -->
+            <div class="account-tile add-account-tile">
+                <div class="add-account-content">
+                    <span class="add-icon">+</span>
+                    <span class="add-text">Create account</span>
+                </div>
             </div>
+            <!-- Container for dynamic bank accounts -->
+        </div>
+        
 
-            <br></br>
-            <div class="table-container">
-            <h2>Last transactions</h2>
+        <h2>Last transactions</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Account</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </main>
+
+      <div id="addAccountModal" class="modal">
+
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Create New Account</h2>
+          <form id="addAccountForm">
+            <label for="balance">Starting Balance:</label>
+            <input
+              type="number"
+              id="balance"
+              name="balance"
+              min="0"
+              step="0.01"
+              required
+            />
+
+            <label for="currency">Currency:</label>
+            <select id="currency" name="currency" required>
+              <option value="0">EUR</option>
+              <option value="1">USD</option>
+              <option value="2">BGN</option>
+            </select>
+
+            <button type="submit">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<!-- Modal for Account Details -->
+<div id="accountDetailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeAccountDetailsModal">&times;</span>
+        <h2>Bank Account Details</h2>
+        <div class="account-info">
+            <p><strong>Balance:</strong> <span id="modalBalance"></span></p>
+            <p><strong>Currency:</strong> <span id="modalCurrency"></span></p>
+            <p><strong>IBAN:</strong> <span id="modalIBAN"></span></p>
+        </div>
+        <h3>Last Transactions</h3>
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>Title</th>
                         <th>Type</th>
-                        <th>Account</th>
                         <th>Amount</th>
                         <th>Currency</th>
                         <th>Timestamp</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="transactionTableBody">
+                    <!-- Transaction rows will be inserted here dynamically -->
                 </tbody>
             </table>
-            </div>
-            
-            
-        </main>
-        <footer class="footer">Nikola Nikolov © 2024</footer>
+        </div>
+        <div class="modal-button-group">
+            <button id="createTransactionButton" class="create-button">Create Transaction</button>
+        <button id="deleteAccountButton" class="delete-button">Delete Account</button>
+        <!-- Button to open Create Transaction modal -->
+        </div>
     </div>
-</body>
+</div>
+
+<!-- Modal for Creating New Transaction -->
+<div id="createTransactionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeCreateTransactionModal">&times;</span>
+        <h2>Create New Transaction</h2>
+        <form id="createTransactionForm">
+            <label for="transactionTitle">Title:</label>
+            <input
+              type="text"
+              id="transactionTitle"
+              name="transactionTitle"
+              required
+            />
+            
+            <label for="transactionAmount">Amount:</label>
+            <input
+              type="number"
+              id="transactionAmount"
+              name="transactionAmount"
+              min="0"
+              step="0.01"
+              required
+            />
+
+            <label for="transactionType">Type:</label>
+            <select id="transactionType" name="transactionType" required>
+              <option value="0">Grocery</option>
+              <option value="1">Transport</option>
+              <option value="2">Utilities</option>
+              <option value="3">Entertainment</option>
+              <option value="4">Dining</option>
+            </select>
+
+            <label for="transactionCurrency">Currency:</label>
+            <select id="transactionCurrency" name="transactionCurrency" required>
+              <option value="0">EUR</option>
+              <option value="1">USD</option>
+              <option value="2">BGN</option>
+            </select>
+            <button type="submit">Create Transaction</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal for confirming actions -->
+<div id="confirmationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeConfirmationModal">&times;</span>
+        <h2>Are you sure?</h2>
+        <p>Do you really want to delete this account? This action cannot be undone.</p>
+        <div class="modal-button-group">
+        <button id="confirmDeleteButton" class="confirm-button">Yes, Delete</button>
+        <button id="cancelDeleteButton" class="cancel-button">Cancel</button>
+        </div>
+    </div>
+</div>
+    
+<footer class="footer">Nikola Nikolov © 2024</footer>
+  </body>
 </html>

@@ -4,10 +4,9 @@ import BaseFirestoreService from "./baseFirestoreService.js";
 class TransactionService extends BaseFirestoreService {
     constructor() {
         super("transactions");
-        this.bankAccountService = new BankAccountService();
     }
 
-    async getTransactionsForAccount(accountId, lastVisibleDoc = null, pageSize = 10) {
+    async getTransactionsForAccount(accountId, lastVisibleDoc = null, pageSize = null) {
         const filter = { field: "bankAccountId", operator: "==", value: accountId };
         return this.getDocuments(filter, lastVisibleDoc, pageSize);
     }
@@ -21,6 +20,24 @@ class TransactionService extends BaseFirestoreService {
     // TODO
     async addTransaction(data) {
         return this.addDocument(data);
+    }
+
+    async deleteTransaction(transactionId)
+    {
+        return this.deleteDocument(transactionId)
+    }
+
+    async deleteAllTransactionsForAccount(accountId)
+    {
+        const transactions = await this.getTransactionsForAccount(accountId)
+
+        if(!transactions.empty)
+        {
+            transactions.documents.forEach(async transaction => {
+                console.log(transaction.id)
+                 await this.deleteTransaction(transaction.id)
+            });
+        }
     }
 }
 
