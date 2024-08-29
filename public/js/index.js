@@ -43,7 +43,6 @@ const fetchAndRenderBankAccounts = async (userId) => {
             tempContainer.innerHTML = accountTileHTML;
             const accountTile = tempContainer.firstElementChild;
 
-            // Add the event listener to the account tile
             accountTile.addEventListener('click', () => {
                 openAccountDetailsModal(account);
             });
@@ -125,7 +124,7 @@ const renderTransactionRow = (transaction, iban) => {
     `;
 };
 
-// Define transaction types and currencies
+// transaction types and currencies
 const TransactionTypes = {
     0: 'Grocery',
     1: 'Transport',
@@ -287,7 +286,7 @@ createTransactionForm.addEventListener("submit", async (event) => {
             type,
             amount,
             currency,
-            bankAccountId: currentAccountId, // Add reference to the account
+            bankAccountId: currentAccountId,
             userId: localStorage.uid
         };
 
