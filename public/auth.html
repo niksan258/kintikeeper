@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Page</title>
+    <link rel="stylesheet" href="./css/auth.css">
+    <script type="module" src="./js/auth.js" defer></script>
+</head>
+<body>
+    <div class="form-container">
+        <div id="loginFormContainer">
+            <h2>Welcome, please log in</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required autocomplete="email">
+                <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+                <span class="form-error"></span>
+                <button type="submit">Login</button>
+            </form>
+            <a class="toggle-link">No account? Create one</a>
+        </div>
+
+        <div id="signupFormContainer" style="display:none;">
+            <h2>Welcome, please sign up</h2>
+            <form id="signupForm">
+                <input type="email" id="signupEmail" placeholder="Email" required autocomplete="email">
+                <input type="password" id="signupPassword" placeholder="Password" required autocomplete="current-password">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required autocomplete="current-password">
+                <span class="form-error"></span>
+                <button type="submit">Sign Up</button>
+            </form>
+            <a class="toggle-link">Already got an account? Login</a>
+        </div>
+    </div>
+</body>
+</html>

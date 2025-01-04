@@ -1,0 +1,294 @@
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    height: 100vh;
+    width: 100%;
+}
+
+.table-container
+{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.header-container
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    /* overflow: hidden; */
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr {
+    border-bottom: 1px solid #ccc;
+}
+tr:last-child {
+    border-bottom: none;
+}
+
+/* Header  & sidebar*/
+.header {
+    grid-area: header;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+#title
+{
+    font-size: 1.25em;
+}
+
+.account-details
+{
+    display: flex;
+    gap:10px;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Main content */
+.main {
+    grid-area: main;
+    background-color: #fff;
+    padding: 20px; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Account Tiles */
+.bank-accounts {
+    display: flex;
+    gap: 20px;
+}
+
+#accountList
+{
+    display: flex;
+    gap: 20px;
+}
+
+.account-tile {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.account-tile .label {
+    font-weight: bold;
+    color: #333;
+}
+
+.account-tile .amount {
+    font-size: 1.5em;
+    color: #4CAF50;
+}
+
+.account-tile .currency .value,
+.account-tile .iban .value {
+    color: #555;
+}
+
+.currency, .iban {
+    margin-top: 5px;
+}
+
+/* Add Account Tile */
+.add-account-tile {
+    background-color: #e0f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-account-tile:hover {
+    background-color: #b2ebf2;
+}
+
+.add-account-content {
+    text-align: center;
+}
+
+.add-icon {
+    font-size: 2em;
+    color: #00796b;
+}
+
+.add-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #00796b;
+    font-weight: bold;
+}
+
+/* Footer */
+.footer {
+    grid-area: footer;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; 
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal h2 {
+    margin-bottom: 20px;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.modal input,
+.modal select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.modal button {
+    width: 100%;
+    padding: 10px;
+    background-color: #292828;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal .delete-button, .modal .cancel-button
+{
+    background: red;
+}
+
+.modal button:hover {
+    background-color: #4a4a4a;
+}
+
+/* Account detals*/
+#accountDetailsModal .modal-content {
+    width: 90%;
+    max-width: 600px;
+}
+
+#accountDetailsModal .account-info {
+    margin-bottom: 20px;
+}
+
+#accountDetailsModal .account-info p {
+    margin: 5px 0;
+}
+
+#accountDetailsModal h3 {
+    margin-top: 20px;
+}
+
+#accountDetailsModal .table-container {
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.modal-button-group
+{
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        padding: 10px;
+    }
+    .main {
+        padding: 10px;
+    }
+    .bank-accounts {
+        flex-direction: column;
+        /* align-items: stretch; */
+    }
+    .account-tile {
+        padding: 15px;
+    }
+    .add-account-tile {
+        padding: 15px;
+    }
+}
